@@ -113,6 +113,18 @@ public class Picture extends SimplePicture {
         }
     }
 
+    public void dogView() {
+        Pixel[][] pixels = this.getPixels2D();
+        int avg;
+        for (Pixel[] rowArray : pixels) {
+            for (Pixel pixelObj : rowArray) {
+                avg = ((pixelObj.getRed() + pixelObj.getGreen())/2);
+                pixelObj.setGreen(avg);
+                pixelObj.setRed(avg);
+            }
+        }
+    }
+
     /**
      * Method that mirrors the picture around a
      * vertical mirror in the center of the picture
@@ -234,7 +246,9 @@ public class Picture extends SimplePicture {
      * method
      */
     public static void main(String[] args) {
-        Picture bronco = new Picture("broncos.jpg");
+        Picture bronco = new Picture("flower1.jpg");
+        bronco.explore();
+        bronco.dogView();
         bronco.explore();
     }
 
