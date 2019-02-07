@@ -113,6 +113,19 @@ public class Picture extends SimplePicture {
         }
     }
 
+    public void scrimageLine() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (int i = 448; i > 135; i--) {
+            colorItBlue(pixels[i][400]);
+        }
+    }
+
+    public void colorItBlue(Pixel p) {
+        p.setRed(0);
+        p.setGreen(51);
+        p.setBlue(153);
+    }
+
     public void dogView() {
         Pixel[][] pixels = this.getPixels2D();
         int avg;
@@ -246,10 +259,13 @@ public class Picture extends SimplePicture {
      * method
      */
     public static void main(String[] args) {
-        Picture bronco = new Picture("flower1.jpg");
+        Picture bronco = new Picture("broncos.jpg");
+        bronco.scrimageLine();
+        bronco.explore();
+        /*Picture bronco = new Picture("flower1.jpg");
         bronco.explore();
         bronco.dogView();
-        bronco.explore();
+        bronco.explore();*/
     }
 
 } // this } is the end of class Picture, put all new methods before this
