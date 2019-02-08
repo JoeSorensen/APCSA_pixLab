@@ -113,17 +113,31 @@ public class Picture extends SimplePicture {
         }
     }
 
-    public void scrimageLine() {
-        Pixel[][] pixels = this.getPixels2D();
-        for (int i = 448; i > 135; i--) {
-            colorItBlue(pixels[i][400]);
-        }
-    }
-
     public void colorItBlue(Pixel p) {
         p.setRed(0);
         p.setGreen(51);
         p.setBlue(153);
+    }
+
+    private boolean isGrass(Pixel p) {
+        int pRed = p.getRed();   //break-out the colors of the given pixel
+        int pGreen = p.getGreen();
+        int pBlue = p.getBlue();
+        return pGreen > 95 && pGreen < 150 && (pRed - pGreen) < 15 && pGreen > pBlue;
+    }
+
+    public void scrimageLine() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (int i = 448; i > 135; i--) {
+            int rounded = (int)Math.round(Math.abs(((double)Math.abs(135-i)/313)-1)*849);
+            for (int j = rounded; j < rounded+15; j++) {
+                int col = j;
+                if(col > 849)
+                    col = 849;
+                if (isGrass(pixels[i][col]))
+                    colorItBlue(pixels[i][col]);
+            }
+        }
     }
 
     public void dogView() {
@@ -259,13 +273,9 @@ public class Picture extends SimplePicture {
      * method
      */
     public static void main(String[] args) {
-        Picture bronco = new Picture("broncos.jpg");
-        bronco.scrimageLine();
-        bronco.explore();
-        /*Picture bronco = new Picture("flower1.jpg");
-        bronco.explore();
-        bronco.dogView();
-        bronco.explore();*/
+        Picture broncos = new Picture("broncos.jpg");
+        broncos.scrimageLine();
+        broncos.explore();
     }
 
 } // this } is the end of class Picture, put all new methods before this
